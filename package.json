@@ -1,0 +1,42 @@
+{
+  "name": "currency-exchange",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js",
+    "dev": "webpack-dev-server --open --mode development --watch",
+    "build": "webpack --mode production",
+    "heroku-postbuild": "webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mau11/currency-exchange.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mau11/currency-exchange/issues"
+  },
+  "homepage": "https://github.com/mau11/currency-exchange#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "file-loader": "^6.0.0",
+    "jest": "^26.1.0",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
