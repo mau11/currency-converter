@@ -13,7 +13,7 @@ export default class Footer extends Component {
               <a href="https://www.linkedin.com/in/mau11/">
                 <img className="icons" alt="linkedin profile" src="./images/linkedin.svg" />
               </a>
-              <a href="https://github.com/mau11/image-finder">
+              <a href="https://github.com/mau11/currency-exchange">
                 <img className="icons" alt="github source code" src="./images/github.png" />
               </a>
             </div>
