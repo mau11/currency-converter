@@ -9,6 +9,7 @@ export default class Search extends Component {
       amount: 0,
       base: [],
       secondary: [],
+      warning: false,
       iso_codes: [
         'AUD','BGN','BRL','CAD','CHF','CNY','CZK','DKK','EUR','GBP','HKD','HUF','IDR','ILS','INR','ISK','JPY','KRW','MXN','MYR','NOK','NZD','PHP','PLN','RON','RUB','SEK','SGD','THB','TRY','USD'
       ]
@@ -30,15 +31,25 @@ export default class Search extends Component {
     e.preventDefault()
     const data = new FormData(e.target)
     let amount = data.get('amount')
-    let baseIso = data.get('base')
-    let secondaryIso = data.get('secondary')
-    this.getRates(baseIso, secondaryIso, amount)
+    if ( Number(amount) ) {
+      this.setState({warning: false})
+      let baseIso = data.get('base')
+      let secondaryIso = data.get('secondary')
+      this.getRates(baseIso, secondaryIso, amount)
+    } else {
+      this.setState({warning: true, result: ''})
+    }
   }
 
   render() {
     return (
       <div className="container col-6 col-offset-6">
         <form className="" onSubmit={this.handleSubmit}>
+          {this.state.warning ?
+            <small className="col-12 m-2 font-weight-light"><i> Please enter a valid number</i></small>
+            :
+            <small className="col-12 m-2"></small>
+          }
           <div className="form-group row m-3">
             <input className="form-control col-6" id="amount" name="amount" placeholder="Enter amount" required/>
             <select className="form-control col-6" defaultValue="USD" name="base">
