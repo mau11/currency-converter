@@ -6,9 +6,6 @@ export default class Search extends Component {
     this.state = {
       api_url: 'https://api.exchangeratesapi.io/latest?base=',
       rates: '',
-      amount: 0,
-      base: [],
-      secondary: [],
       warning: false,
       iso_codes: [
         'AUD','BGN','BRL','CAD','CHF','CNY','CZK','DKK','EUR','GBP','HKD','HUF','IDR','ILS','INR','ISK','JPY','KRW','MXN','MYR','NOK','NZD','PHP','PLN','RON','RUB','SEK','SGD','THB','TRY','USD'
@@ -17,11 +14,11 @@ export default class Search extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  getRates(iso, secondary, amount) {
-    fetch(this.state.api_url+iso)
+  getRates(baseIso, secondaryIso, amount) {
+    fetch(this.state.api_url+baseIso)
     .then(res => res.json())
     .then(results => {
-      let result = (amount * results.rates[secondary]).toFixed(2)
+      let result = (amount * results.rates[secondaryIso]).toFixed(2)
       this.setState({result: result})
     })
     .catch(err => {console.log('ERROR', err)})
@@ -31,7 +28,7 @@ export default class Search extends Component {
     e.preventDefault()
     const data = new FormData(e.target)
     let amount = data.get('amount')
-    if ( Number(amount) ) {
+    if (Number(amount)) {
       this.setState({warning: false})
       let baseIso = data.get('base')
       let secondaryIso = data.get('secondary')
@@ -44,7 +41,7 @@ export default class Search extends Component {
   render() {
     return (
       <div className="container col-6 col-offset-6">
-        <form className="" onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           {this.state.warning ?
             <small className="col-12 m-2 font-weight-light"><i> Please enter a valid number</i></small>
             :
@@ -63,13 +60,12 @@ export default class Search extends Component {
             </div>
             <select className="form-control col-6" defaultValue="EUR" name="secondary">
               {this.state.iso_codes.map((code, i) => (
-              <option id={'iso-'+i} key={i}>{code}</option>
-            ))}
+                <option id={'iso-'+i} key={i}>{code}</option>
+              ))}
             </select>
           </div>
           <div className="col-12">
-            <button className="btn btn-secondary">Get Rates
-            </button>
+            <button className="btn btn-secondary">Get Rates</button>
           </div>
         </form>
       </div>
